@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h1>Todos</h1>
+<ul>
+    {{ range . }}
+        <li>PrimaryKey = {{ .Id }}, 内容 = {{ .Content }}
+            <form action="http://localhost:8080/todo/delete/{{ .Id }}" method="post">
+                <input type="submit" value="削除">
+            </form>
+            <a href="http://localhost:8080/todo/show/{{ .Id }}">詳細ページ</a>
+        </li>
+    {{ else }}
+        <p>Todoがまだ登録されていません。</p>
+    {{ end }}
+</ul>
+
+<h2>新規作成フォーム</h2>
+<div>
+    <form action="http://localhost:8080/todo/create/" method="post">
+        <label for="content">内容: </label>
+        <input type="text" name="content">
+        <input type="submit" value="保存">
+    </form>
+</div>
+</body>
+</html>
