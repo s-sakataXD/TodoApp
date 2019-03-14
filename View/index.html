@@ -8,11 +8,11 @@
 <h1>Todos</h1>
 <ul>
     {{ range . }}
-        <li>PrimaryKey = {{ .Id }}, 内容 = {{ .Content }}
-            <form action="http://localhost:8080/todo/delete/{{ .Id }}" method="post">
+        <li>PrimaryKey = {{ .ID }}, 内容 = {{ .Content }}
+            <form action="http://localhost:8080/todo/delete/{{ .ID }}" method="post">
                 <input type="submit" value="削除">
             </form>
-            <a href="http://localhost:8080/todo/show/{{ .Id }}">詳細ページ</a>
+            <a href="http://localhost:8080/todo/show/{{ .ID }}">詳細ページ</a>
         </li>
     {{ else }}
         <p>Todoがまだ登録されていません。</p>

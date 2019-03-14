@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/julienschmidt/httprouter"
 	"net"
 	"net/http"
 	"net/http/fcgi"
-	"todo-app/Controller"
+	Todo "todo-app/controller"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func routes() http.Handler {

@@ -1,8 +1,8 @@
-package Model
+package model
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" //DBドライバを直接使用すべきではないため
 )
 
 var Db *gorm.DB

@@ -1,55 +1,61 @@
-package Todo
+package todo
 
 import (
-	"github.com/julienschmidt/httprouter"
 	"html/template"
 	"net/http"
 	"strconv"
-	"todo-app/Model"
+	model "todo-app/Model"
+
+	"github.com/julienschmidt/httprouter"
 )
 
+// Index is handle
 func Index(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	var allTodos []Model.Todo
-	Model.Db.Find(&allTodos)
+	var allTodos []model.Todo
+	model.Db.Find(&allTodos)
 	t, _ := template.ParseFiles("./View/index.html")
 	t.Execute(w, allTodos)
 }
 
+// Show is handle
 func Show(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	t, _ := template.ParseFiles("./View/show.html")
-	todo := Model.Todo{}
+	todo := model.Todo{}
 	id, err := strconv.Atoi(p.ByName("id"))
 	if err != nil {
 		http.Redirect(w, r, "/todo/index", 303)
 	}
-	Model.Db.Where("id = $1", id).First(&todo)
+	model.Db.Where("id = $1", id).First(&todo)
 	t.Execute(w, todo)
 }
 
+// Edit is handle
 func Edit(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	todo := Model.Todo{}
+	todo := model.Todo{}
 	id, err := strconv.Atoi(p.ByName("id"))
 	if err != nil {
 		http.Redirect(w, r, "/todo/index", 303)
 	}
-	Model.Db.Model(&todo).Where("Id = ?", id).Update("Content", r.PostFormValue("content"))
+	model.Db.Model(&todo).Where("ID = ?", id).Update("Content", r.PostFormValue("content"))
 	http.Redirect(w, r, "/todo/show/"+p.ByName("id"), 303)
 }
 
+// Create is handle
 func Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	todo := Model.Todo{Content: r.PostFormValue("content")}
-	Model.Db.Create(&todo)
+	todo := model.Todo{Content: r.PostFormValue("content")}
+	model.Db.Create(&todo)
 	http.Redirect(w, r, "/todo/index", 303)
 }
 
+// Delete is handle
 func Delete(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	todo := Model.Todo{}
+	todo := model.Todo{}
 	id, err := strconv.Atoi(p.ByName("id"))
 	if err != nil {
 		http.RedirectHandler("/todo/index", 303)
 	}
-	todo.Id = id
-	Model.Db.First(&todo)
-	Model.Db.Delete(&todo)
+	todo.ID = id
+	model.Db.First(&todo)
+	model.Db.Delete(&todo)
 	http.Redirect(w, r, "/todo/index", 303)
 }
