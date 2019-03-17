@@ -13,13 +13,13 @@ import (
 func Index(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	var allTodos []model.Todo
 	model.Db.Find(&allTodos)
-	t, _ := template.ParseFiles("./View/index.html")
+	t, _ := template.ParseFiles("./view/index.html")
 	t.Execute(w, allTodos)
 }
 
 // Show is handle
 func Show(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	t, _ := template.ParseFiles("./View/show.html")
+	t, _ := template.ParseFiles("./view/show.html")
 	todo := model.Todo{}
 	id, err := strconv.Atoi(p.ByName("id"))
 	if err != nil {

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"net"
 	"net/http"
-	"net/http/fcgi"
 	todo "todo-app/controller"
 
 	"github.com/julienschmidt/httprouter"
@@ -20,7 +18,6 @@ func routes() http.Handler {
 }
 
 func main() {
-	l, _ := net.Listen("tcp", "127.0.0.1:9000")
 	mux := routes()
-	fcgi.Serve(l, mux)
+	http.ListenAndServe(":9000", mux)
 }
