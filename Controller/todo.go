@@ -37,7 +37,7 @@ func Edit(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.Redirect(w, r, "/todo/index", 303)
 	}
 	model.Db.Model(&todo).Where("ID = ?", id).Update("Content", r.PostFormValue("content"))
-	http.Redirect(w, r, "/todo/show/"+p.ByName("id"), 303)
+	http.Redirect(w, r, "/todo/index/", 303)
 }
 
 // Create is handle

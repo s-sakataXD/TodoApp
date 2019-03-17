@@ -4,26 +4,23 @@ import (
 	"net"
 	"net/http"
 	"net/http/fcgi"
-	Todo "todo-app/controller"
+	todo "todo-app/controller"
 
 	"github.com/julienschmidt/httprouter"
 )
 
 func routes() http.Handler {
 	mux := httprouter.New()
-	mux.GET("/todo/index", Todo.Index)
-	mux.GET("/todo/show/:id", Todo.Show)
-	mux.POST("/todo/edit/:id", Todo.Edit)
-	mux.POST("/todo/create/", Todo.Create)
-	mux.POST("/todo/delete/:id", Todo.Delete)
+	mux.GET("/todo/index", todo.Index)
+	mux.GET("/todo/show/:id", todo.Show)
+	mux.POST("/todo/edit/:id", todo.Edit)
+	mux.POST("/todo/create/", todo.Create)
+	mux.POST("/todo/delete/:id", todo.Delete)
 	return mux
 }
 
 func main() {
-	l, err := net.Listen("tcp", "127.0.0.1:9000")
-	if err != nil {
-		return
-	}
+	l, _ := net.Listen("tcp", "127.0.0.1:9000")
 	mux := routes()
 	fcgi.Serve(l, mux)
 }
