@@ -2,9 +2,9 @@ package main
 
 import (
 	"net/http"
-	todo "todo-app/controller"
 
 	"github.com/julienschmidt/httprouter"
+	todo "github.com/s-sakataXD/TodoApp/Controller/todo"
 )
 
 func routes() http.Handler {

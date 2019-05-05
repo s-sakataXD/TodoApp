@@ -4,7 +4,8 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
-	model "todo-app/Model"
+
+	model "github.com/s-sakataXD/TodoApp/model"
 
 	"github.com/julienschmidt/httprouter"
 )
